@@ -25,16 +25,17 @@ public class Filter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authHeader = request.getHeader("Authorization");
-        if (authHeader == null || authHeader.startsWith("Bearer ")){
+        if (authHeader == null || !authHeader.startsWith("Bearer ")){
             filterChain.doFilter(request,response);
             return;
         }
         String token = authHeader.substring(7);
         if (!jwtService.validateToken(token)){
             filterChain.doFilter(request,response);
+            System.out.println("hata");
             return;
         }
-        Claim username = jwtService.getClaimFromToken("username");
+        Claim username = jwtService.getClaimFromToken(token,"username");
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null){
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username.asString());
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
