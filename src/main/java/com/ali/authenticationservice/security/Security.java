@@ -4,6 +4,7 @@ import com.ali.authenticationservice.filters.Filter;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -31,7 +32,7 @@ public class Security {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
                 .authorizeHttpRequests(authorize->authorize
-                        .requestMatchers("/**").permitAll()
+                        .requestMatchers("/api/auth/users").permitAll()
                         .anyRequest().permitAll()
                 )
                 .sessionManagement(session->session
