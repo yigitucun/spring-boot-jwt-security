@@ -6,6 +6,7 @@ import com.ali.authenticationservice.core.utils.JwtService;
 import com.ali.authenticationservice.dataAccess.abstracts.IUserRepository;
 import com.ali.authenticationservice.dto.requests.AddAuthRequest;
 import com.ali.authenticationservice.dto.requests.AuthRequest;
+import com.ali.authenticationservice.dto.responses.ListUsersResponse;
 import com.ali.authenticationservice.dto.responses.TokenResponse;
 import com.ali.authenticationservice.entities.concretes.User;
 import lombok.AllArgsConstructor;
@@ -13,6 +14,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -45,6 +48,12 @@ public class AuthManager  implements AuthService {
         TokenResponse response = new TokenResponse();
         response.setToken(token);
         return response;
+    }
+
+    @Override
+    public List<ListUsersResponse> getUsers() {
+        List<User> users = this.userRepository.findAll();
+        return ListUsersResponse.toEntity(users);
     }
 }
 
