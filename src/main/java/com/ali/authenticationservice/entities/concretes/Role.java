@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "roles")
 @AllArgsConstructor
@@ -15,4 +17,6 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String role;
+    @ManyToMany(mappedBy = "roles")
+    private List<User> users;
 }
