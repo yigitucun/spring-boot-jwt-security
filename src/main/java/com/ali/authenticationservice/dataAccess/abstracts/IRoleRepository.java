@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface IRoleRepository extends JpaRepository<Role,Integer> {
     boolean existsById(int id);
     Role findById(int id);
+    boolean existsByRole(String role);
 
 }
