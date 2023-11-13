@@ -19,7 +19,7 @@ public class AddAuthRequest {
     public User toEntity(AddAuthRequest authRequest){
         return User.builder()
                 .name(authRequest.getName())
-                .username(authRequest.getPassword())
+                .username(authRequest.getUsername())
                 .password(authRequest.getPassword())
                 .build();
     }
