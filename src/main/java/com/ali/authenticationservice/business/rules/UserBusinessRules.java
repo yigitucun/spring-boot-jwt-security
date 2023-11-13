@@ -16,4 +16,9 @@ public class UserBusinessRules {
             throw new BusinessException("Kullanıcı adı önceden alınmış.", HttpStatus.BAD_REQUEST);
         }
     }
+    public void checkIfUserId(int id){
+        if (!this.userRepository.existsById(id)){
+            throw new BusinessException("Böyle bir kullanıcı bulunamadı.",HttpStatus.BAD_REQUEST);
+        }
+    }
 }
