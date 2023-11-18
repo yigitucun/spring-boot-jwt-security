@@ -32,7 +32,6 @@ public class Filter extends OncePerRequestFilter {
         String token = authHeader.substring(7);
         if (!jwtService.validateToken(token)){
             filterChain.doFilter(request,response);
-            System.out.println("hata");
             return;
         }
         Claim username = jwtService.getClaimFromToken(token,"username");
